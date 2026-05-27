@@ -4,7 +4,7 @@ function App() {
 
   const comprar = async () => {
     try {
-      const res = await axios.post("https://tu-backend.herokuapp.com/crear-pago");
+      const res = await axios.post("https://expendbus-backend-63572f3be5ce.herokuapp.com/");
 
       window.location.href = res.data.init_point;
     } catch (error) {
