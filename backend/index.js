@@ -1,53 +1,60 @@
 import express from "express";
-import mercadopago from "mercadopago";
 import cors from "cors";
 import dotenv from "dotenv";
+import { MercadoPagoConfig, Preference } from "mercadopago";
 
 dotenv.config();
 
 const app = express();
+
 app.use(cors());
 app.use(express.json());
 
-mercadopago.configure({
-  access_token: process.env.MP_ACCESS_TOKEN,
+const client = new MercadoPagoConfig({
+  accessToken: process.env.MP_ACCESS_TOKEN,
 });
 
-// 👉 Crear pago
+const preference = new Preference(client);
+
+app.get("/", (req, res) => {
+  res.send("Backend ExpendBus funcionando");
+});
+
 app.post("/crear-pago", async (req, res) => {
   try {
-    const preference = {
-      items: [
-        {
-          title: "Alfajor",
-          quantity: 1,
-          unit_price: 1500,
+    const response = await preference.create({
+      body: {
+        items: [
+          {
+            title: "Alfajor",
+            quantity: 1,
+            unit_price: 1500,
+            currency_id: "ARS",
+          },
+        ],
+        back_urls: {
+          success: "http://localhost:5173/success",
+          failure: "http://localhost:5173/failure",
+          pending: "http://localhost:5173/pending",
         },
-      ],
-      back_urls: {
-        success: "https://tu-frontend.com/success",
-        failure: "https://tu-frontend.com/failure",
-        pending: "https://tu-frontend.com/pending",
+        auto_return: "approved",
       },
-      auto_return: "approved",
-    };
-
-    const response = await mercadopago.preferences.create(preference);
+    });
 
     res.json({
-      init_point: response.body.init_point,
+      init_point: response.init_point,
     });
   } catch (error) {
-    console.error(error);
-    res.status(500).send("Error creando pago");
+    console.error("Error creando pago:", error);
+    res.status(500).json({
+      error: "Error creando pago",
+      detalle: error.message,
+    });
   }
 });
 
-// 👉 Webhook (después lo usamos con ESP32)
-app.post("/webhook", (req, res) => {
-  console.log("Webhook recibido:", req.body);
-  res.sendStatus(200);
-});
-
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log("Servidor corriendo en", PORT));
+
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en puerto ${PORT}`);
+});
