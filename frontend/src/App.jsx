@@ -30,7 +30,7 @@ function App() {
           width="200"
         />
         <h2>Alfajor</h2>
-        <p>$1500</p>
+        <p>$1</p>
 
         <button onClick={comprar}>
           Comprar
