@@ -9,7 +9,7 @@ function Home() {
 
   const producto = {
     nombre: "Alfajor",
-    precio: 1500,
+    precio: 1,
     imagen: "https://i.imgur.com/2DhmtJ4.jpg",
   };
 
