@@ -30,7 +30,7 @@ app.post("/crear-pago", async (req, res) => {
           {
             title: "Alfajor",
             quantity: 1,
-            unit_price: 1500,
+            unit_price: 1,
             currency_id: "ARS",
           },
         ],
