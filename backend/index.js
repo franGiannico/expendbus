@@ -37,10 +37,10 @@ app.post("/crear-pago", async (req, res) => {
         external_reference: "pedido-001", // Identificador único del pedido para mejorar en el futuro
 
         back_urls: {
-          success: "https://expendbus.netlify.app/success",
-          failure: "https://expendbus.netlify.app/failure",
-          pending: "https://expendbus.netlify.app/pending",
-        },
+        success: "https://expendbus.netlify.app/#/success",
+        failure: "https://expendbus.netlify.app/#/failure",
+        pending: "https://expendbus.netlify.app/#/pending",
+      },
         auto_return: "approved",
       },
     });
