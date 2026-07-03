@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Typography, Box } from "@mui/material";
-
 import ProductCard from "../components/ProductCard";
 import { crearPago } from "../services/api";
+import alfajorImg from "../assets/alfajor.webp";
 
 function Home() {
   const [loading, setLoading] = useState(false);
@@ -10,7 +10,7 @@ function Home() {
   const producto = {
     nombre: "Alfajor",
     precio: 1,
-    imagen: "https://i.imgur.com/2DhmtJ4.jpg",
+    imagen: alfajorImg,
   };
 
   const comprar = async () => {
