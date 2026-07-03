@@ -11,7 +11,7 @@ function Success() {
       </Typography>
 
       <Typography>
-        En breve podrás retirar tu producto.
+        ¡Ya podés retirar tu producto!
       </Typography>
 
       <Button component={Link} to="/" variant="contained">
